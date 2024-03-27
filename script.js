@@ -74,7 +74,7 @@ function updateTotal() {
         element.innerText = subtotal;
     };
 };
-
+    
 
 // var cartUpdateBtn = document.getElementsByClassName('btn');
 // for (let i = 0; i < cartUpdateBtn.length; i++) {
