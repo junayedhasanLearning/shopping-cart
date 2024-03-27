@@ -2,37 +2,33 @@ const phonePrice = 1219;
 const phoneCasePrice = 59;
 let totalPrice, totalPhonePrice, totalPhoneCasePrice;
 let subTotalAmount = 0;
-// function for adding quantity
-function addItem(inputQuantity, showPrice, price) {
+// function for increasing or decreasing quantity
+function productChange(isIncrease, inputQuantity, showPrice, price) {
     let quantity = document.getElementById(inputQuantity);
     let value = parseInt(quantity.value);
-    quantity.value = value+1
+    // 
+    if (isIncrease == true) {
+        quantity.value = value + 1
+    } else {
+        if (quantity.value >= 1) {
+            quantity.value = value - 1
+        } else {
+            alert(`Quantity can not be less than ${quantity.value}, please firstly increase! `)
+        }
+    };
     totalPrice = quantity.value * price
-    document.getElementById(showPrice).innerText = totalPrice;
-};
-// function for removing quantity
-function removeItem(inputQuantity, showPrice, price) {
-    let quantity = document.getElementById(inputQuantity);
-    let value = quantity.value;
-    // for avoiding negative values
-    if (value >= 1) {
-        quantity.value = value - 1
-    }
-    totalPrice = quantity.value * price;
     document.getElementById(showPrice).innerText = totalPrice;
 };
 
 // adding phone quantity  
 document.getElementById('addPhone').addEventListener('click', () => {
-    addItem("iphoneQuantity", "totalPhonePrice", phonePrice)
+    productChange(true, "iphoneQuantity", "totalPhonePrice", phonePrice)
 
 });
 
-
-
 // removing phone quantity 
 document.getElementById('removePhone').addEventListener('click', () => {
-    removeItem('iphoneQuantity', 'totalPhonePrice', phonePrice);
+    productChange(false, 'iphoneQuantity', 'totalPhonePrice', phonePrice);
 
 });
 
@@ -44,12 +40,12 @@ document.getElementById('removePhoneBlock').addEventListener('click', () => {
 
 // adding phone case quantity 
 document.getElementById('addPhoneCase').addEventListener('click', () => {
-    addItem('phoneCaseQuantity', 'phoneCasePrice', phoneCasePrice);
+    productChange(true, 'phoneCaseQuantity', 'phoneCasePrice', phoneCasePrice);
 });
 
 // removing phone case quantity
 document.getElementById('removePhoneCase').addEventListener('click', () => {
-    removeItem('phoneCaseQuantity', 'phoneCasePrice', phoneCasePrice);
+    productChange(false, 'phoneCaseQuantity', 'phoneCasePrice', phoneCasePrice);
 });
 
 // close phone case row whenever clicked on cross image
@@ -62,7 +58,7 @@ document.getElementById('removePhoneCaseBlock').addEventListener('click', () => 
 var cartUpdateBtn = document.getElementsByClassName('btn');
 for (let i = 0; i < cartUpdateBtn.length; i++) {
     const element = cartUpdateBtn[i];
-    element.addEventListener('click', function (event) {
+    element.addEventListener('click', function () {
         // declaring variables for getting number of prices
         totalPhonePrice = document.getElementById('totalPhonePrice');
         totalPhoneCasePrice = document.getElementById('phoneCasePrice');
